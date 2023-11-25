@@ -113,7 +113,7 @@ BEGIN
 		END
 	ELSE IF @x = '3'  OR @x = 'count'
 		BEGIN
-			-- who is connected and how many sessions it has 
+			-- shows who is connected and how many sessions it has 
 			IF OBJECT_ID('dbo.WhoIsActive', 'U') IS NOT NULL   DROP TABLE dbo.WhoIsActive; 
 			--Create Table [dbo].[WhoIsActive]
 			CREATE TABLE [dbo].[WhoIsActive](
@@ -297,7 +297,7 @@ BEGIN
 
 	ELSE IF @x = '8' OR @x = 'Wait Type'
 	   BEGIN
-		-- Last updated February 26, 2019: SQLSkills
+		-- Last updated Nov 15, 2023: SQLSkills
 		WITH [Waits] AS
 			(SELECT
 				[wait_type],
@@ -420,7 +420,7 @@ BEGIN
 	
 	ELSE IF @x = '9' OR @x = 'Update_stat'
 		BEGIN
-	        --Exec DBAUtil.dbo.DBA_UPDATE_STAT_CHECK
+	        --Exec Admin.dbo.DBA_UPDATE_STAT_CHECK
 		DECLARE @SQLStatement NVARCHAR(4000),  @name NVARCHAR(4000), @sqlmajorver int, @sqlminorver int, @sqlbuild int
 		SELECT @sqlmajorver = CONVERT(int, (@@microsoftversion / 0x1000000) & 0xff);
 		SELECT @sqlminorver = CONVERT(int, (@@microsoftversion / 0x10000) & 0xff);
@@ -428,7 +428,7 @@ BEGIN
 
 			DECLARE backup_cursor CURSOR FOR  
 			SELECT name FROM master.sys.databases
-			WHERE  name not in ('master','model','msdb','SSISDB','DBAUtil','tempdb')
+			WHERE  name not in ('master','model','msdb','SSISDB','Admin','tempdb')
 						AND [state] = 0 
 						AND [is_read_only] = 0
 						AND [source_database_id] IS NULL
